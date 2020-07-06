@@ -39,11 +39,11 @@
                             <tr>
                                 <td>{{ item.id }}</td>
                                 <td>{{ item.descripcion }}</td>
-                                <td>{{ item.estado }}</td>
+                                <td>{{ item.estado|yesno:"Activo,Inactivo" }}</td>
                                 <td>{{ item.fecha_Creacion|date:"d/m/Y H:i:s" }}</td>
-                                <td>{{ item.fecha_Modificado }}</td>
+                                <td>{{ item.fecha_Modificado|date:"d/m/Y H:i:s" }}</td>
                                 <td>
-                                    <a href="#" class="btn btn-warning btn-circle" role="button"><i class="far fa-edit"></i></a>
+                                    <a href="{% url 'inv:categoria_edit' item.id %}" class="btn btn-warning btn-circle" role="button"><i class="far fa-edit"></i></a>
                                     <a href="#" class="btn btn-danger btn-circle" role="button"><i class="far fa-trash-alt"></i></a>
                                 </td>
                             </tr>
@@ -56,4 +56,10 @@
 
 {% endblock %}
 {% block js_page %} 
+<script>
+    //Call the dataTable
+    $(document).ready(function(){
+        $('.table').DataTable();
+    });
+</script>
 {% endblock %}
