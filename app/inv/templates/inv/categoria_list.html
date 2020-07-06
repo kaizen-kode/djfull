@@ -13,7 +13,7 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                     <div class="dropdown-header">Acciones</div>
-                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="{% url 'inv:categoria_new' %}"><i class="far fa-calendar-plus"></i>Nuevo</a>
                     <a class="dropdown-item" href="#">Another action</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#">Something else here</a>
@@ -38,8 +38,8 @@
                         {% for item in obj %}
                             <tr>
                                 <td>{{ item.id }}</td>
-                                <td>{{ item.Descripcion }}</td>
-                                <td>{{ item.Estado }}</td>
+                                <td>{{ item.descripcion }}</td>
+                                <td>{{ item.estado }}</td>
                                 <td>{{ item.fecha_Creacion|date:"d/m/Y H:i:s" }}</td>
                                 <td>{{ item.fecha_Modificado }}</td>
                                 <td>
