@@ -82,7 +82,7 @@ class SubCategoriaEdit(LoginRequiredMixin, generic.UpdateView):
 
 class SubCategoriaDel(LoginRequiredMixin, generic.DeleteView):
     model = SubCategoria
-    template_name = "inv/categoria_del.html"
+    template_name = "inv/marca_del.html"
     context_object_name = "obj"
     success_url = reverse_lazy("inv:subcategoria_list")
 
@@ -139,7 +139,7 @@ def MarcaInactivar(request, id):
 
 #UNIDAD DE MEDIDA
 class UnidadMedidaView(LoginRequiredMixin, generic.ListView):
-    model = Producto
+    model = UnidadMedida
     template_name = "inv/unidad_medida_list.html"
     context_object_name = "obj"
     login_url = "bases:login"
@@ -173,9 +173,9 @@ class UnidadMedidaEdit(LoginRequiredMixin, generic.UpdateView):
 def UnidadMedidaInactivar(request, id):
     unidadmedida = UnidadMedida.objects.filter(pk= id).first()
     contexto = {}
-    template_name = "inv/unidad_medida_del.html"
+    template_name = "inv/marca_del.html"
 
-    if not marca:
+    if not unidadmedida:
         return redirect("inv:unidad_medida_list")
     
     if request.method=='GET':
@@ -225,7 +225,7 @@ class ProductoEdit(LoginRequiredMixin, generic.UpdateView):
 def ProductoInactivar(request, id):
     producto = Producto.objects.filter(pk= id).first()
     contexto = {}
-    template_name = "inv/producto_del.html"
+    template_name = "inv/marca_del.html"
 
     if not producto:
         return redirect("inv:producto_list")
