@@ -20,6 +20,8 @@
   <link href="{% static 'base/css/sb-admin-2.min.css' %}" rel="stylesheet">
   <link href="{% static 'base/vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
 
+  <!--Jquery Confirm-->
+  <link href="{% static 'base/vendor/jquery_confirm/jquery-confirm.min.css' %} "rel="stylesheet"  class="">
 </head>
 
 <body id="page-top" class="bg-gradient-primary">
@@ -65,12 +67,13 @@
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Catalogos de inventarios</h6>
+            <h6 class="collapse-header">Catalogos de Inventarios</h6>
             <a class="collapse-item" href="{% url 'inv:categoria_list' %}">Categorias</a>
             <a class="collapse-item" href="{% url 'inv:subcategoria_list' %}">Sub Categorias</a>
             <a class="collapse-item" href="{% url 'inv:marca_list' %}">Marcas</a>
             <a class="collapse-item" href="{% url 'inv:unidad_medida_list' %}">Unidades de Medida</a>
             <a class="collapse-item" href="{% url 'inv:producto_list' %}">Productos</a>
+            <h6 class="collapse-header">Catalogos de Compras</h6>
             <a class="collapse-item" href="{% url 'cmp:proveedor_list' %}">Proveedores</a>
           </div>
         </div>
@@ -413,7 +416,7 @@
   <script src="{% static 'base/vendor/datatables/jquery.dataTables.min.js' %}"></script>
   <script src="{% static 'base/vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
 
-  {% block js_page %} {% endblock %}
+  <script src="{% static 'base/vendor/jquery_confirm/jquery-confirm.min.js' %}"></script>
 
   {% block control_modal %} 
     <script>
@@ -426,14 +429,43 @@
           })
           $(this).modal('show');
         });
+        console.log(url)
       }
 
       function cerrar_modal(){
         $('#popup').modal('hide');
         return false;
       }
+
+      function mensaje(msg,color='green')
+      {
+        if (color=="success")
+        {
+          color = "green";
+        }
+
+        if (color=="error")
+        {
+          color = "red";
+        }
+
+        $.alert({
+          title:'',
+          theme:'material',
+          type:color,
+          content:msg
+        });        
+      }
+
+      {% if messages %}
+        {% for message in messages %}
+          mensaje("{{ message }}");
+        {% endfor %}
+      {% endif %}
     </script>
   {% endblock %}
+
+  {% block js_page %} {% endblock %}  
 </body>
 
 </html>
