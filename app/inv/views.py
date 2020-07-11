@@ -9,7 +9,8 @@ from django.contrib.messages.views import SuccessMessageMixin
 from .models import Categoria, SubCategoria, Marca, UnidadMedida, Producto
 from .forms import CategoriaForm, SubCategoriaForm, MarcaForm, UnidadMedidaForm, ProductoForm
 
-class CategoriaView(LoginRequiredMixin, PermissionRequiredMixin, generic.ListView):
+from bases.views import SinPrivilegios
+class CategoriaView(LoginRequiredMixin, SinPrivilegios, generic.ListView):
     permission_required = "inv.view_categoria"
     model = Categoria
     template_name = "inv/categoria_list.html"
@@ -17,7 +18,7 @@ class CategoriaView(LoginRequiredMixin, PermissionRequiredMixin, generic.ListVie
     login_url = "bases:login"
     
 
-class CategoriaNew(SuccessMessageMixin, PermissionRequiredMixin, LoginRequiredMixin, \
+class CategoriaNew(SuccessMessageMixin, SinPrivilegios, LoginRequiredMixin, \
     generic.CreateView):
     permission_required = "inv.add_categoria"
     model = Categoria
@@ -33,7 +34,7 @@ class CategoriaNew(SuccessMessageMixin, PermissionRequiredMixin, LoginRequiredMi
         return super().form_valid(form)
 
 
-class CategoriaEdit(SuccessMessageMixin, PermissionRequiredMixin, LoginRequiredMixin, \
+class CategoriaEdit(SuccessMessageMixin, SinPrivilegios, LoginRequiredMixin, \
     generic.UpdateView):
     permission_required = "inv.change_categoria"
     model = Categoria
@@ -49,7 +50,7 @@ class CategoriaEdit(SuccessMessageMixin, PermissionRequiredMixin, LoginRequiredM
         return super().form_valid(form)
 
 
-class CategoriaDel(LoginRequiredMixin, PermissionRequiredMixin, generic.DeleteView):
+class CategoriaDel(LoginRequiredMixin, SinPrivilegios, generic.DeleteView):
     permission_required = "inv.delete_categoria"
     model = Categoria
     template_name = "inv/categoria_del.html"
@@ -57,7 +58,7 @@ class CategoriaDel(LoginRequiredMixin, PermissionRequiredMixin, generic.DeleteVi
     success_url = reverse_lazy("inv:categoria_list")
 
 
-class SubCategoriaView(LoginRequiredMixin, PermissionRequiredMixin, generic.ListView):
+class SubCategoriaView(LoginRequiredMixin, SinPrivilegios, generic.ListView):
     permission_required = "inv.view_subcategoria"
     model = SubCategoria
     template_name = "inv/subcategoria_list.html"
@@ -65,7 +66,7 @@ class SubCategoriaView(LoginRequiredMixin, PermissionRequiredMixin, generic.List
     login_url = "bases:login"
 
 
-class SubCategoriaNew(LoginRequiredMixin, PermissionRequiredMixin, generic.CreateView):
+class SubCategoriaNew(LoginRequiredMixin, SinPrivilegios, generic.CreateView):
     permission_required = "inv.add_subcategoria"
     model = SubCategoria
     template_name = "inv/subcategoria_form.html"
@@ -79,7 +80,7 @@ class SubCategoriaNew(LoginRequiredMixin, PermissionRequiredMixin, generic.Creat
         return super().form_valid(form)
 
 
-class SubCategoriaEdit(LoginRequiredMixin, PermissionRequiredMixin, generic.UpdateView):
+class SubCategoriaEdit(LoginRequiredMixin, SinPrivilegios, generic.UpdateView):
     permission_required = "inv.change_subcategoria"
     model = SubCategoria
     template_name = "inv/subcategoria_form.html"
@@ -93,7 +94,7 @@ class SubCategoriaEdit(LoginRequiredMixin, PermissionRequiredMixin, generic.Upda
         return super().form_valid(form)
 
 
-class SubCategoriaDel(LoginRequiredMixin, PermissionRequiredMixin, generic.DeleteView):
+class SubCategoriaDel(LoginRequiredMixin, SinPrivilegios, generic.DeleteView):
     permission_required = "inv.delete_subcategoria"
     model = SubCategoria
     template_name = "inv/marca_del.html"
@@ -101,14 +102,14 @@ class SubCategoriaDel(LoginRequiredMixin, PermissionRequiredMixin, generic.Delet
     success_url = reverse_lazy("inv:subcategoria_list")
 
 
-class MarcaView(LoginRequiredMixin, PermissionRequiredMixin, generic.ListView):
+class MarcaView(LoginRequiredMixin, SinPrivilegios, generic.ListView):
     permission_required = "inv.view_marca"
     model = Marca
     template_name = "inv/marca_list.html"
     context_object_name = "obj"
     login_url = "bases:login"
     
-class MarcaNew(LoginRequiredMixin, PermissionRequiredMixin, generic.CreateView):
+class MarcaNew(LoginRequiredMixin, SinPrivilegios, generic.CreateView):
     permission_required = "inv.add_marca"
     model = Marca
     template_name = "inv/marca_form.html"
@@ -122,7 +123,7 @@ class MarcaNew(LoginRequiredMixin, PermissionRequiredMixin, generic.CreateView):
         return super().form_valid(form)
 
 
-class MarcaEdit(LoginRequiredMixin, PermissionRequiredMixin, generic.UpdateView):
+class MarcaEdit(LoginRequiredMixin, SinPrivilegios, generic.UpdateView):
     permission_required = "inv.change_marca"
     model = Marca
     template_name = "inv/marca_form.html"
@@ -156,14 +157,14 @@ def MarcaInactivar(request, id):
     return render(request, template_name, contexto)
 
 #UNIDAD DE MEDIDA
-class UnidadMedidaView(LoginRequiredMixin, PermissionRequiredMixin, generic.ListView):
+class UnidadMedidaView(LoginRequiredMixin, SinPrivilegios, generic.ListView):
     permission_required = "inv.view_unidadmedida"
     model = UnidadMedida
     template_name = "inv/unidad_medida_list.html"
     context_object_name = "obj"
     login_url = "bases:login"
     
-class UnidadMedidaNew(LoginRequiredMixin, PermissionRequiredMixin, generic.CreateView):
+class UnidadMedidaNew(LoginRequiredMixin, SinPrivilegios, generic.CreateView):
     permission_required = "inv.add_unidadmedida"
     model = UnidadMedida
     template_name = "inv/unidad_medida_form.html"
@@ -177,7 +178,7 @@ class UnidadMedidaNew(LoginRequiredMixin, PermissionRequiredMixin, generic.Creat
         return super().form_valid(form)
 
 
-class UnidadMedidaEdit(LoginRequiredMixin, PermissionRequiredMixin, generic.UpdateView):
+class UnidadMedidaEdit(LoginRequiredMixin, SinPrivilegios, generic.UpdateView):
     permission_required = "inv.change_unidadmedida"
     model = UnidadMedida
     template_name = "inv/unidad_medida_form.html"
@@ -211,14 +212,14 @@ def UnidadMedidaInactivar(request, id):
 
 
 #PRODUCTO
-class ProductoView(LoginRequiredMixin, PermissionRequiredMixin, generic.ListView):
+class ProductoView(LoginRequiredMixin, SinPrivilegios, generic.ListView):
     permission_required = "inv.view_producto"
     model = Producto
     template_name = "inv/producto_list.html"
     context_object_name = "obj"
     login_url = "bases:login"
     
-class ProductoNew(LoginRequiredMixin, PermissionRequiredMixin, generic.CreateView):
+class ProductoNew(LoginRequiredMixin, SinPrivilegios, generic.CreateView):
     permission_required = "inv.add_unidadmedida"
     model = Producto
     template_name = "inv/producto_form.html"
@@ -232,7 +233,7 @@ class ProductoNew(LoginRequiredMixin, PermissionRequiredMixin, generic.CreateVie
         return super().form_valid(form)
 
 
-class ProductoEdit(LoginRequiredMixin, PermissionRequiredMixin, generic.UpdateView):
+class ProductoEdit(LoginRequiredMixin, SinPrivilegios, generic.UpdateView):
     permission_required = "inv.change_unidadmedida"
     model = Producto
     template_name = "inv/producto_form.html"
